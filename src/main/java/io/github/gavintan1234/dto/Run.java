@@ -1,13 +1,11 @@
 package io.github.gavintan1234.dto;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Run {
 	
@@ -16,9 +14,8 @@ public class Run {
 	private List<String> finalDeck;
 	private JsonNode root;
 
-	public Run(String filename) throws JsonProcessingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		this.root = mapper.readTree(new File(filename));
+	public Run(JsonNode root) throws JsonProcessingException {
+		this.root = root;
 		this.isWon = root.get("win").booleanValue();
 		this.character = root.get("players").get(0).get("character").toString();
 	}
@@ -47,5 +44,7 @@ public class Run {
 		
 		return this.finalDeck;
 	}
+	
+	
 
 }
